@@ -1,5 +1,12 @@
-import { COUNTRIES, SELECTED_COUNTRY, DELETED_COUNTRY, DRAG_DROP_COUNTRY, SEARCH_COUNTRY } from "../types";
 import axios from "axios";
+import { 
+  COUNTRIES, 
+  SELECTED_COUNTRY, 
+  DELETED_COUNTRY, 
+  DRAG_DROP_COUNTRY, 
+  SEARCH_COUNTRY,
+  DRAG_DROP_SELECTED_COUNTRY,
+} from "../types";
 import { actionCreator } from "../actionCreator";
 
 export const getAllCountriesAction = actionCreator(
@@ -29,6 +36,11 @@ export const deletedCountry = (data) => ({
 
 export const dragDropCountry = (data) => ({
   type: DRAG_DROP_COUNTRY, 
+  payload: data,
+});
+
+export const dragDropSelectedCountry = (data) => ({
+  type: DRAG_DROP_SELECTED_COUNTRY, 
   payload: data,
 });
 

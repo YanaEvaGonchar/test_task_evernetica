@@ -11,10 +11,23 @@ export const useStyles = makeStyles({
     maxWidth: '600px',
     padding: '40px',
   },
+  close: {
+    height: '40px',
+    width: '40px',
+    position: 'absolute'
+  },
   media: {
     height: '200px',
     width: '300px',
-  }
+  },
+  nameBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '15px',
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
 });
 
 export const CountryDetails = () => {
@@ -30,14 +43,9 @@ export const CountryDetails = () => {
 
 useEffect(() => {
     setCountry(JSON.parse(localStorage.getItem('country')))
-}, [localStorage]);
+}, []);
 
   return (
-    <>
-        <IconButton onClick={handleClickBack}>
-            <ArrowBackIosIcon />
-        </IconButton>
-
         <Card className={classes.root}>
             {!country ? 
                 <CardContent>
@@ -48,6 +56,10 @@ useEffect(() => {
             :
                 <>
                     <Box display="flex" flexDirection="row" justifyContent="space-between">
+                        <IconButton className={classes.close} onClick={handleClickBack}>
+                            <ArrowBackIosIcon />
+                        </IconButton>
+
                         <CardMedia
                             component="img"
                             className={classes.media}
@@ -55,41 +67,43 @@ useEffect(() => {
                             title={country?.name?.common}
                             alt={country?.name?.common}
                         />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                            {country?.name?.common}
-                            </Typography>
 
-                            {country?.checked && <CheckIcon />}
+                        <CardContent>
+                            <Box className={classes.nameBox}>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                {country?.name?.common}
+                                </Typography>
+
+                                {country?.checked && <CheckIcon />}
+                            </Box>
 
                             <Typography variant="body2" color="textSecondary" component="p">
                                 Country code: <span style={{ fontWeight: 'bold' }}>{country?.cca2}</span>
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary" component="p">
-                                Capital: <span style={{ fontWeight: 'bold' }}>{country?.capital}</span>
+                                Capital: <span className={classes.boldText}>{country?.capital}</span>
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary" component="p">
-                                Continent: <span style={{ fontWeight: 'bold' }}>{country?.continents}</span>
+                                Continent: <span className={classes.boldText}>{country?.continents}</span>
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary" component="p">
-                                Subregion: <span style={{ fontWeight: 'bold' }}>{country?.subregion}</span>
+                                Subregion: <span className={classes.boldText}>{country?.subregion}</span>
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary" component="p">
-                                Population: <span style={{ fontWeight: 'bold' }}>{country?.population} people</span>
+                                Population: <span className={classes.boldText}>{country?.population} people</span>
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary" component="p">
-                                {`Currency: ${country?.currencies[Object.keys(country?.currencies)[0]].name}`}
+                                Currency: <span className={classes.boldText}>{country?.currencies[Object.keys(country?.currencies)[0]].name}</span> 
                             </Typography>
                         </CardContent>
                     </Box>                
                 </>
             }
         </Card>
-    </>
   );
 };

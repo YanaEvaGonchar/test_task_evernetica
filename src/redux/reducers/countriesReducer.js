@@ -1,4 +1,11 @@
-import { COUNTRIES, SELECTED_COUNTRY, DELETED_COUNTRY, DRAG_DROP_COUNTRY, SEARCH_COUNTRY } from "../types";
+import { 
+  COUNTRIES, 
+  SELECTED_COUNTRY, 
+  DELETED_COUNTRY, 
+  DRAG_DROP_COUNTRY, 
+  SEARCH_COUNTRY,
+  DRAG_DROP_SELECTED_COUNTRY,
+} from "../types";
 
 export default function countries(
   state = {
@@ -18,7 +25,7 @@ export default function countries(
       const newFilteredCountries = state.filteredCountries.filter((country) => 
         country.cca2 !== action.payload.cca2
       ) 
-      const selectedCountry = { ...action.payload, checked: true}
+      const selectedCountry = { ...action.payload, checked: true};
 
       return { ...state, filteredCountries: newFilteredCountries,currentCountries: newFilteredCountries, selectedCountries: [...state.selectedCountries, selectedCountry]};
 
@@ -26,7 +33,7 @@ export default function countries(
       const newSelectedCountries = state.selectedCountries.filter((country) => 
         country.cca2 !== action.payload.cca2
       ) 
-      const deletedCountry = { ...action.payload, checked: false}
+      const deletedCountry = { ...action.payload, checked: false};
 
       return { ...state, selectedCountries: newSelectedCountries, currentCountries: [...state.filteredCountries, deletedCountry], filteredCountries: [...state.filteredCountries, deletedCountry]};
 
@@ -36,6 +43,13 @@ export default function countries(
       newOrder.splice(action.payload.destination.index, 0, removed);
 
       return { ...state, currentCountries: newOrder, filteredCountries: newOrder};
+
+    case DRAG_DROP_SELECTED_COUNTRY:
+      const newSelectedOrder = Array.from(state.selectedCountries);
+      const [removedSelected] = newSelectedOrder.splice(action.payload.source.index, 1);
+      newSelectedOrder.splice(action.payload.destination.index, 0, removedSelected);
+
+      return { ...state, currentCountries: newSelectedOrder, selectedCountries: newSelectedOrder};
 
     case SEARCH_COUNTRY: 
       if (!action.payload) return { ...state, filteredCountries: state.currentCountries }
