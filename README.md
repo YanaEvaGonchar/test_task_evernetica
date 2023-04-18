@@ -2,6 +2,8 @@
 
 ## Demo
 
+[DEMO LINK](https://yanaevagonchar.github.io/test_task_evernetica/)
+
 ## Description
 
 A simple React application for getting and displaying a list of countries.
