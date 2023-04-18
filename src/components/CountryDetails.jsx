@@ -8,13 +8,19 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 export const useStyles = makeStyles({
   root: {
     margin: 'auto',
+    marginTop: '50px',
     maxWidth: '600px',
     padding: '40px',
   },
   close: {
     height: '40px',
     width: '40px',
-    position: 'absolute'
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   media: {
     height: '200px',
@@ -55,7 +61,7 @@ useEffect(() => {
                 </CardContent>
             :
                 <>
-                    <Box display="flex" flexDirection="row" justifyContent="space-between">
+                    <Box className={classes.container}>
                         <IconButton className={classes.close} onClick={handleClickBack}>
                             <ArrowBackIosIcon />
                         </IconButton>
