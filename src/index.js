@@ -13,7 +13,7 @@ import { store } from "./redux/store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="*" element={ <App /> }>
         </Route>
