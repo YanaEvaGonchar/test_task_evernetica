@@ -9,9 +9,7 @@ import { selectedCountry, deletedCountry } from '../redux/actions/countriesActio
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-  },
-  media: {
-    height: 140,
+    height: '100%',
   },
   actions: {
     visibility: 'hidden',
@@ -21,6 +19,9 @@ const useStyles = makeStyles({
   visible: {
     visibility: 'visible',
     opacity: 1,
+  },
+  checked: {
+    backgroundColor: '#f5f5f5',
   },
 });
 
@@ -44,7 +45,11 @@ export const CountryCard = ({country}) => {
   };
 
   const handleChecked = () => {
-    dispatch(selectedCountry(country));
+    if (country?.checked) {
+      dispatch(deletedCountry(country));
+    } else {
+      dispatch(selectedCountry(country));
+    }
   };
 
   const handleDeleted = () => {
@@ -52,7 +57,11 @@ export const CountryCard = ({country}) => {
   };
 
   return (
-    <Card className={classes.root} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <Card 
+      className={`${classes.root} ${country?.checked ? classes.checked : ''}`}
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+    >
       <CardActionArea onClick={handleClick}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

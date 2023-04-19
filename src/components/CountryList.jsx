@@ -21,7 +21,7 @@ export const CountryList = ({ countries, selectedCountries }) => {
   };
 
   return (
-    <>
+    <Box maxWidth="1200px" margin="auto">
       <DragDropContext onDragEnd={handleOnDragSelectedEnd}>
         <Droppable droppableId="country-list">
           {(provided) => (
@@ -83,6 +83,6 @@ export const CountryList = ({ countries, selectedCountries }) => {
           )}
         </Droppable>
       </DragDropContext>
-    </>
+    </Box>
   );
 };

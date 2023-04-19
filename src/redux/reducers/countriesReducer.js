@@ -25,40 +25,66 @@ export default function countries(
       const newFilteredCountries = state.filteredCountries.filter((country) => 
         country.cca2 !== action.payload.cca2
       ) 
+      const newCurrentCountries = state.currentCountries.filter((country) => 
+        country.cca2 !== action.payload.cca2
+      )
       const selectedCountry = { ...action.payload, checked: true};
 
-      return { ...state, filteredCountries: newFilteredCountries,currentCountries: newFilteredCountries, selectedCountries: [...state.selectedCountries, selectedCountry]};
+      return { 
+        ...state, 
+        filteredCountries: newFilteredCountries, 
+        currentCountries: newCurrentCountries, 
+        selectedCountries: [...state.selectedCountries, selectedCountry]
+      };
 
     case DELETED_COUNTRY:
-      const newSelectedCountries = state.selectedCountries.filter((country) => 
-        country.cca2 !== action.payload.cca2
-      ) 
-      const deletedCountry = { ...action.payload, checked: false};
-
-      return { ...state, selectedCountries: newSelectedCountries, currentCountries: [...state.filteredCountries, deletedCountry], filteredCountries: [...state.filteredCountries, deletedCountry]};
+      return { 
+        ...state, 
+        selectedCountries: state.selectedCountries.filter((country) => country.cca2 !== action.payload.cca2), 
+        currentCountries: state.currentCountries.filter((country) => country.cca2 !== action.payload.cca2), 
+        filteredCountries: state.filteredCountries.filter((country) => country.cca2 !== action.payload.cca2) 
+      };
 
     case DRAG_DROP_COUNTRY:
       const newOrder = Array.from(state.filteredCountries);
       const [removed] = newOrder.splice(action.payload.source.index, 1);
       newOrder.splice(action.payload.destination.index, 0, removed);
 
-      return { ...state, currentCountries: newOrder, filteredCountries: newOrder};
+      const newCurrentOrder = Array.from(state.currentCountries);
+      const [removedCurrent] = newCurrentOrder.splice(action.payload.source.index, 1);
+      newCurrentOrder.splice(action.payload.destination.index, 0, removedCurrent);
+
+      return { 
+        ...state, 
+        currentCountries: newCurrentOrder, 
+        filteredCountries: newOrder
+      };
 
     case DRAG_DROP_SELECTED_COUNTRY:
       const newSelectedOrder = Array.from(state.selectedCountries);
       const [removedSelected] = newSelectedOrder.splice(action.payload.source.index, 1);
       newSelectedOrder.splice(action.payload.destination.index, 0, removedSelected);
 
-      return { ...state, currentCountries: newSelectedOrder, selectedCountries: newSelectedOrder};
+      return { 
+        ...state, 
+        selectedCountries: newSelectedOrder
+      };
 
     case SEARCH_COUNTRY: 
       if (!action.payload) return { ...state, filteredCountries: state.currentCountries }
-      return { ...state, filteredCountries: state.currentCountries.filter((country) => 
+      return { 
+        ...state, 
+        filteredCountries: state.currentCountries.filter((country) => 
         JSON.stringify(country.name.common).toUpperCase().includes(action.payload.toUpperCase())
       )};
 
     case COUNTRIES.GET_ALL_COUNTRIES.SUCCESS:
-      return { ...state, allCountries: action.payload, filteredCountries: action.payload, currentCountries: action.payload };
+      return { 
+        ...state, 
+        allCountries: action.payload, 
+        filteredCountries: action.payload, 
+        currentCountries: action.payload 
+      };
 
     case COUNTRIES.GET_ALL_COUNTRIES.FAILURE:
       return {
