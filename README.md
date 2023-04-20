@@ -10,7 +10,7 @@ A simple React application for getting and displaying a list of countries.
 
 At the beginning of the page there is a search field and a search reset button. Below is a list of country cards, which is formed when the you start entering text in the search field (the list is updated after changing the search field). Card order can be changed by dragging.
 
-On the card, when hovered over, two active elements appear: a checkbox and a delete button. If you click on the checkbox, then this card will become linked and will not be deleted when the search criteria (reset) is changed. After changing the search criteria, the linked countries remain at the top of the list and are not deleted. When you click on the delete button, the card is removed from the list
+On the card, when hovered over, two active elements appear: a checkbox and a delete button. If you click on the checkbox, then this card will become linked and will not be deleted when the search criteria (reset) is changed. After changing the search criteria, the linked countries remain at the top of the list and are not deleted. When you click on the delete button, the card is removed from the list.
 
 Clicking on the card will take you to the country details page.
 
